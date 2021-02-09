@@ -6,6 +6,9 @@ alias s="git status"
 alias pip="pip3"
 alias jl="jupyter lab"
 alias python="python3"
+alias b="gh repo view --web"
+alias rmrf="rm -r -f"
+
 m() {
     git commit -m "$@"
     git push
@@ -14,6 +17,8 @@ m() {
 lg() {
     ls -a | grep $@
 }
+
+
 
 
 # >>> conda initialize >>>
