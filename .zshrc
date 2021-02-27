@@ -2,12 +2,20 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # eval "$(starship init bash)"
 
-alias s="git status"
+
 alias pip="pip3"
-alias jl="jupyter lab"
 alias python="python3"
+
+jltf(){
+    docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter/tensorflow-notebook}
+
 alias b="gh repo view --web"
+alias s="git status"
+
 alias rmrf="rm -r -f"
+
+alias ayy="echo ayy lmao"
+alias carla="echo carla es puta"
 
 m() {
     git commit -m "$@"
@@ -23,24 +31,26 @@ lg() {
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/opt/anaconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/opt/anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
 
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jesi/.oh-my-zsh"
 export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
 
+export IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+export DISPLAY="${IP}:0"
 
 PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
 export PATH
