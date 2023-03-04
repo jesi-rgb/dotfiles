@@ -1,0 +1,21 @@
+use-grammars = {only = ["python","typescript", "javascript", "tailwindcss", "svelte", "json", "css", "html"]}
+
+[[language]]
+name = 'python'
+auto-format = true
+formatter = { command = "black", args = ["--quiet", "-"] }
+
+
+[[language]]
+name = 'toml'
+auto-format = true
+
+[[language]]
+name = "javascript"
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "typescript"
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true

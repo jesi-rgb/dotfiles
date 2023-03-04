@@ -1,0 +1,12 @@
+inherits = "ayu_dark"
+
+"attribute" = { fg = "gold" }
+"keyword" = {fg = "cherry"} 
+"markup" = {fg = "cherry"}
+"class" = {fg = "light_blue"}
+
+
+
+[palette]
+gold = '#FEC418'
+cherry = '#F92572'

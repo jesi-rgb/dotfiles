@@ -1,0 +1,35 @@
+theme = "rasmus-jesi"
+
+[editor]
+line-number = "relative"
+mouse = false
+scrolloff = 10
+idle-timeout = 0
+completion-trigger-len = 1
+auto-format = true
+
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "block"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
