@@ -126,14 +126,10 @@ require('lazy').setup({
     {
       'rose-pine/neovim',
       name = 'rose-pine',
-      opts = {
-        dark_variant = 'auto',
-        disable_background = true,
-        disable_italics = true
-      },
       config = function()
-        vim.cmd.colorscheme('rose-pine')
-      end,
+        require('rose-pine').setup({ disable_background = true, disable_italics = true });
+        vim.cmd('colorscheme rose-pine');
+      end
     },
 
     {
@@ -468,7 +464,6 @@ local servers = {
       pythonPath = '/opt/homebrew/bin/python3.10'
     }
   },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
