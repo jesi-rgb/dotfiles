@@ -35,7 +35,6 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -77,14 +76,15 @@ require('lazy').setup({
   'yuezk/vim-js',
   'maxmellon/vim-jsx-pretty',
   'HerringtonDarkholme/yats.vim',
-  'vim-autoformat/vim-autoformat',
   'ThePrimeagen/harpoon',
   'Everduin94/nvim-quick-switcher',
   'sbdchd/neoformat',
+  'evanleck/vim-svelte',
   {
     -- NOTE: This is where your plugins related to LSP can be installed.
     --  The configuration is done below. Search for lspconfig to find it below.
-    { -- LSP Configuration & Plugins
+    {
+      -- LSP Configuration & Plugins
       'neovim/nvim-lspconfig',
       dependencies = {
         -- Automatically install LSPs to stdpath for neovim
@@ -100,14 +100,16 @@ require('lazy').setup({
       },
     },
 
-    { -- Autocompletion
+    {
+      -- Autocompletion
       'hrsh7th/nvim-cmp',
       dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
     },
 
     -- Useful plugin to show you pending keybinds.
-    { 'folke/which-key.nvim', opts = {} },
-    { -- Adds git releated signs to the gutter, as well as utilities for managing changes
+    { 'folke/which-key.nvim',          opts = {} },
+    {
+      -- Adds git releated signs to the gutter, as well as utilities for managing changes
       'lewis6991/gitsigns.nvim',
       opts = {
         -- See `:help gitsigns.txt`
@@ -124,26 +126,40 @@ require('lazy').setup({
     {
       'rose-pine/neovim',
       name = 'rose-pine',
-      priority = 1000,
+      opts = {
+        dark_variant = 'auto',
+        disable_background = true,
+        disable_italics = true
+      },
       config = function()
-        vim.cmd.colorscheme 'rose-pine'
+        vim.cmd.colorscheme('rose-pine')
       end,
     },
 
-    { -- Set lualine as statusline
+    {
+      -- Set lualine as statusline
       'nvim-lualine/lualine.nvim',
       -- See `:help lualine.txt`
       opts = {
         options = {
           icons_enabled = false,
-          theme = 'onedark',
+          theme = 'rose-pine',
           component_separators = '|',
-          section_separators = '',
+          section_separators = ' ',
+        },
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = { 'branch', 'diff', 'diagnostics' },
+          lualine_c = { 'filename' },
+          lualine_x = { 'encoding', 'filesize', 'fileformat', 'filetype' },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' }
         },
       },
     },
 
-    { -- Add indentation guides even on blank lines
+    {
+      -- Add indentation guides even on blank lines
       'lukas-reineke/indent-blankline.nvim',
       -- Enable `lukas-reineke/indent-blankline.nvim`
       -- See `:help indent_blankline.txt`
@@ -154,7 +170,7 @@ require('lazy').setup({
     },
 
     -- "gc" to comment visual regions/lines
-    { 'numToStr/Comment.nvim', opts = {} },
+    { 'numToStr/Comment.nvim',         opts = {} },
 
     -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -172,7 +188,8 @@ require('lazy').setup({
       end,
     },
 
-    { -- Highlight, edit, and navigate code
+    {
+      -- Highlight, edit, and navigate code
       'nvim-treesitter/nvim-treesitter',
       dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
@@ -264,7 +281,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = 'undojoin | Neoformat'
 })
 
-
 vim.o.scrolloff = 15
 vim.keymap.set('n', '<leader>b', require("harpoon.ui").toggle_quick_menu)
 vim.keymap.set('n', '<leader>a', require("harpoon.mark").add_file)
@@ -314,6 +330,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>ef', vim.cmd.Ex)
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -440,9 +457,17 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  --
+  pyright = {
+    python = {
+      analysis = {
+        extraPaths = { '~/repositorios/Reducible/common' },
+      },
+      pythonPath = '/opt/homebrew/bin/python3.10'
+    }
+  },
 
   lua_ls = {
     Lua = {
